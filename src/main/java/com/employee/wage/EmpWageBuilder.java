@@ -1,6 +1,7 @@
 package com.employee.wage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 class CompanyEmpWage
 {
@@ -42,10 +43,12 @@ public class EmpWageBuilder implements IEmpwageBuilder
     public static final int FULL_TIME = 2;
     // instance variables
     ArrayList<CompanyEmpWage> companies;
+    HashMap<String, Integer> totalEmpWages;
 
     public EmpWageBuilder()
     {
         companies = new ArrayList<>();
+        totalEmpWages = new HashMap<>();
     }
 
     @Override
@@ -53,6 +56,7 @@ public class EmpWageBuilder implements IEmpwageBuilder
     {
         CompanyEmpWage company = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
         companies.add(company);
+        totalEmpWages.put(companyName,0);
     }
 
     int generateEmployeeType()
@@ -100,8 +104,20 @@ public class EmpWageBuilder implements IEmpwageBuilder
             totalWage += wage;
             System.out.printf("%5d       %5d      %5d      %5d\n", day, workingHrs, wage, totalWorkingHrs + workingHrs);
         }
+        totalEmpWages.put(companyEmpWage.COMPANY_NAME, totalWage);
         return totalWage;
     }
+
+    void printTotalEmpWages()
+    {
+        System.out.println("The Companies and their total Employee Wages are:");
+        for (String companyName : totalEmpWages.keySet())
+        {
+            System.out.println(companyName + ": " + totalEmpWages.get(companyName));
+        }
+
+    }
+
 
     public static void main(String args[])
     {
@@ -109,5 +125,6 @@ public class EmpWageBuilder implements IEmpwageBuilder
         empWageBuilder.addCompany("Amazon", 20,16, 150);
         empWageBuilder.addCompany("Flipkart",40,20,100);
         empWageBuilder.calculateTotalWage();
+        empWageBuilder.printTotalEmpWages();
     }
 }
