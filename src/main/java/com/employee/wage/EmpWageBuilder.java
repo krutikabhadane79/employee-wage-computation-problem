@@ -118,6 +118,12 @@ public class EmpWageBuilder implements IEmpwageBuilder
 
     }
 
+    public int getTotalEmpWage(String companyName)
+    {
+        return totalEmpWages.get(companyName);
+    }
+
+
 
     public static void main(String args[])
     {
@@ -126,5 +132,8 @@ public class EmpWageBuilder implements IEmpwageBuilder
         empWageBuilder.addCompany("Flipkart",40,20,100);
         empWageBuilder.calculateTotalWage();
         empWageBuilder.printTotalEmpWages();
+        String query = "Flipkart";
+        int totalWage = empWageBuilder.getTotalEmpWage(query);
+        System.out.println("Total Employee Wage for " + query + " company is " + totalWage);
     }
 }
