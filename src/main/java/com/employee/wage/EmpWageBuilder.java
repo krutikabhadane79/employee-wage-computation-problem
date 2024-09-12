@@ -35,7 +35,7 @@ class CompanyEmpWage
     }
 }
 
-public class EmpWageBuilder
+public class EmpWageBuilder implements IEmpwageBuilder
 {
     // class constants
     public static final int PART_TIME = 1;
@@ -51,7 +51,8 @@ public class EmpWageBuilder
         index = 0;
     }
 
-    void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs)
+    @Override
+    public void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs)
     {
         companies[index++] = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
     }
@@ -74,7 +75,8 @@ public class EmpWageBuilder
         }
     }
 
-    void calculateTotalWage()
+    @Override
+    public void calculateTotalWage()
     {
         for (CompanyEmpWage company : companies)
         {
