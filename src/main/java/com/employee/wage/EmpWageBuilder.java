@@ -1,5 +1,7 @@
 package com.employee.wage;
 
+import java.util.ArrayList;
+
 class CompanyEmpWage
 {
     // instance constants
@@ -27,8 +29,6 @@ class CompanyEmpWage
     public String toString()
     {
         System.out.println("Details of " + COMPANY_NAME + " employee");
-        System.out.println("-----------------------------------------------------");
-        System.err.println("Wage per hour:" + WAGE_PER_HR);
         System.out.println("Maximum working days:" + MAX_WORKING_DAYS);
         System.out.println("Maximum working hours:" + MAX_WORKING_HRS);
         return "Total wage for a month of " + COMPANY_NAME + " employee is " + totalEmpWage + "\n";
@@ -41,20 +41,18 @@ public class EmpWageBuilder implements IEmpwageBuilder
     public static final int PART_TIME = 1;
     public static final int FULL_TIME = 2;
     // instance variables
-    int noOfCompanies, index;
-    CompanyEmpWage[] companies;
+    ArrayList<CompanyEmpWage> companies;
 
-    public EmpWageBuilder(int noOfCompanies)
+    public EmpWageBuilder()
     {
-        this.noOfCompanies = noOfCompanies;
-        companies = new CompanyEmpWage[noOfCompanies];
-        index = 0;
+        companies = new ArrayList<>();
     }
 
     @Override
     public void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs)
     {
-        companies[index++] = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
+        CompanyEmpWage company = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
+        companies.add(company);
     }
 
     int generateEmployeeType()
@@ -107,7 +105,7 @@ public class EmpWageBuilder implements IEmpwageBuilder
 
     public static void main(String args[])
     {
-        EmpWageBuilder empWageBuilder = new EmpWageBuilder(2);
+        EmpWageBuilder empWageBuilder = new EmpWageBuilder();
         empWageBuilder.addCompany("Amazon", 20,16, 150);
         empWageBuilder.addCompany("Flipkart",40,20,100);
         empWageBuilder.calculateTotalWage();
